@@ -1,0 +1,426 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  user-select: none;
+}
+
+body {
+  background-color: #ffffff;
+  color: #0a4479;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.app-container {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  background-color: #ffffff;
+}
+
+.screen {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #ffffff;
+}
+
+.screen.hidden {
+  display: none !important;
+}
+
+/* Tarjeta de Inicio */
+.card {
+  background: #ffffff;
+  border: 2px solid #00abe6;
+  padding: 35px;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 520px;
+  box-shadow: 0 10px 30px rgba(10, 68, 121, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  text-align: center;
+}
+
+.logo-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 5px;
+}
+
+.main-logo {
+  max-width: 80%;
+  height: auto;
+  object-fit: contain;
+}
+
+.card h1 {
+  font-size: 1.6rem;
+  color: #0a4479;
+}
+
+.subtitle {
+  color: #06889d;
+  font-size: 0.95rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  text-align: left;
+}
+
+.form-row {
+  display: flex;
+  gap: 10px;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: 1px solid #00abe6;
+  background: #ffffff;
+  color: #0a4479;
+  font-size: 1rem;
+}
+
+textarea {
+  resize: none;
+  font-family: inherit;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: #0a4479;
+  box-shadow: 0 0 5px rgba(10, 68, 121, 0.3);
+}
+
+.form-label {
+  font-size: 0.85rem;
+  color: #0a4479;
+  font-weight: 600;
+  margin-top: 5px;
+}
+
+/* Botones Selector de Servicio VERDES */
+.service-toggle-group {
+  display: flex;
+  gap: 10px;
+}
+
+.service-btn {
+  flex: 1;
+  padding: 12px;
+  border: 2px solid #55a932;
+  background: #ffffff;
+  color: #0a4479;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.service-btn.active {
+  background: #55a932;
+  color: #ffffff;
+  border-color: #55a932;
+}
+
+/* Botones Generales */
+.btn-primary {
+  background: #00abe6;
+  color: #ffffff;
+  font-weight: bold;
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  box-shadow: 0 4px 12px rgba(0, 171, 230, 0.3);
+}
+
+.btn-secondary {
+  background: #f0f4f8;
+  color: #0a4479;
+  font-weight: 600;
+  padding: 12px;
+  border: 1px solid #06889d;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.admin-link {
+  margin-top: 5px;
+}
+
+.btn-small {
+  background: #0a4479;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* Sección de Ruleta */
+.game-header {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  right: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.participant-tag {
+  background: #0a4479;
+  color: #ffffff;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.wheel-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.canvas-wrapper {
+  position: relative;
+  width: 380px;
+  height: 380px;
+  margin: 10px 0;
+}
+
+canvas {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  box-shadow: 0 0 25px rgba(10, 68, 121, 0.2);
+}
+
+.pointer {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 16px solid transparent;
+  border-right: 16px solid transparent;
+  border-top: 32px solid #0a4479;
+  z-index: 10;
+  filter: drop-shadow(0 3px 4px rgba(0,0,0,0.2));
+}
+
+.controls-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.power-bar-container {
+  width: 260px;
+  height: 12px;
+  background: #e2e8f0;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid #00abe6;
+}
+
+.power-bar-fill {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, #afcc46 0%, #55a932 50%, #31986c 100%);
+  transition: width 0.05s linear;
+}
+
+.spin-btn {
+  background: #55a932;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 800;
+  padding: 14px 40px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  touch-action: manipulation;
+  box-shadow: 0 4px 14px rgba(85, 169, 50, 0.4);
+}
+
+.spin-btn.charging {
+  background: #31986c;
+}
+
+.hint {
+  font-size: 0.8rem;
+  color: #06889d;
+}
+
+/* Pantalla Completa de Administración con Scroll Ajustado */
+.admin-container {
+  width: 100%;
+  max-width: 1250px;
+  height: calc(100vh - 40px);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #00abe6;
+}
+
+.admin-content {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 20px;
+  flex: 1;
+  min-height: 0; /* Permite scroll interno */
+}
+
+.admin-card, .admin-table-card {
+  background: #ffffff;
+  border: 1px solid #00abe6;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(10, 68, 121, 0.05);
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.admin-card h3, .admin-table-card h3 {
+  margin-bottom: 12px;
+  color: #0a4479;
+}
+
+.admin-form-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.table-header-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+/* Contenedor de Tabla con Scroll Habilitado */
+.table-wrapper {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: auto;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  max-height: 100%;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+th, td {
+  padding: 10px;
+  border-bottom: 1px solid #e2e8f0;
+  text-align: left;
+}
+
+th {
+  background: #0a4479;
+  color: #ffffff;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+
+.btn-action-edit {
+  background: #00abe6;
+  color: white;
+  border: none;
+  padding: 5px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-right: 4px;
+}
+
+.btn-action-delete {
+  background: #d9534f;
+  color: white;
+  border: none;
+  padding: 5px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* Modales */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 68, 121, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  backdrop-filter: blur(4px);
+}
+
+.modal.hidden {
+  display: none;
+}
+
+.modal-content {
+  background: #ffffff;
+  border: 2px solid #00abe6;
+  padding: 30px;
+  border-radius: 20px;
+  text-align: center;
+  width: 90%;
+  max-width: 450px;
+}
+
+.prize-badge {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #31986c;
+  margin: 15px 0;
+}
+
+.modal-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 15px;
+}

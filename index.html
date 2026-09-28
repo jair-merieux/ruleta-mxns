@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Ruleta Promocional Offline</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0a4479">
+</head>
+<body>
+
+  <div class="app-container">
+
+    <!-- 1. PANTALLA DE INICIO -->
+    <section id="screen-welcome" class="screen active">
+      <div class="card">
+        <div class="logo-container">
+          <img src="logo.png" alt="Mérieux NutriSciences" class="main-logo">
+        </div>
+
+        <h1>Bienvenido a la Ruleta de Premios</h1>
+        <p class="subtitle">Ingresa tus datos para habilitar el giro</p>
+
+        <form id="start-form" onsubmit="startExperience(event)">
+          <div class="form-row">
+            <input type="text" id="user-firstname" placeholder="Nombre" required>
+            <input type="text" id="user-lastname" placeholder="Apellido" required>
+          </div>
+          <input type="email" id="user-email" placeholder="Correo electrónico" required>
+          <input type="text" id="user-company" placeholder="Empresa / Organización" required>
+
+          <label class="form-label">Selecciona el servicio de tu interés:</label>
+          <div class="service-toggle-group">
+            <button type="button" id="btn-service-herramientas" class="service-btn active" onclick="selectService('herramientas')">
+              Herramientas Digitales
+            </button>
+            <button type="button" id="btn-service-fssc" class="service-btn" onclick="selectService('fssc')">
+              Auditoría FSSC 22000
+            </button>
+          </div>
+
+          <button type="submit" class="btn-primary">IR A LA RULETA</button>
+        </form>
+
+        <button class="btn-secondary admin-link" onclick="showScreen('screen-admin')">Panel de Administración</button>
+      </div>
+    </section>
+
+    <!-- 2. PANTALLA DE JUEGO -->
+    <section id="screen-game" class="screen hidden">
+      <header class="game-header">
+        <button class="btn-small" onclick="goToHome()">Inicio</button>
+        <div id="participant-tag" class="participant-tag"></div>
+      </header>
+
+      <div class="wheel-section">
+        <h2 id="wheel-title">Cargando...</h2>
+        <p id="wheel-subtitle" class="subtitle"></p>
+
+        <div class="canvas-wrapper">
+          <div class="pointer"></div>
+          <canvas id="wheelCanvas" width="500" height="500"></canvas>
+        </div>
+
+        <div class="controls-wrapper">
+          <div class="power-bar-container">
+            <div id="power-bar" class="power-bar-fill"></div>
+          </div>
+          <button id="spin-btn" class="spin-btn">MANTÉN PRESIONADO</button>
+          <span class="hint">Mantén presionado para cargar la fuerza y suelta para girar</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. PANTALLA COMPLETA DE ADMINISTRACIÓN E HISTORIAL -->
+    <section id="screen-admin" class="screen hidden">
+      <div class="admin-container">
+        <header class="admin-header">
+          <h2>Panel de Administración de Participantes</h2>
+          <button class="btn-secondary" onclick="showScreen('screen-welcome')">Volver al Inicio</button>
+        </header>
+
+        <div class="admin-content">
+          <!-- Formulario Agregar / Editar -->
+          <div class="admin-card">
+            <h3 id="admin-form-title">Agregar / Editar Participante</h3>
+            <form id="admin-form" onsubmit="handleAdminFormSubmit(event)">
+              <input type="hidden" id="admin-record-id">
+              
+              <input type="text" id="admin-firstname" placeholder="Nombre" required>
+              <input type="text" id="admin-lastname" placeholder="Apellido" required>
+              <input type="email" id="admin-email" placeholder="Correo electrónico" required>
+              <input type="text" id="admin-company" placeholder="Empresa" required>
+              
+              <label class="form-label">Servicio Interesado:</label>
+              <select id="admin-service" required>
+                <option value="Herramientas Digitales">Herramientas Digitales</option>
+                <option value="Auditoría FSSC 22000">Auditoría FSSC 22000</option>
+              </select>
+
+              <label class="form-label">Premio Asignado:</label>
+              <input type="text" id="admin-prize" placeholder="Premio (Ej. 3 Días Hábiles)" required>
+
+              <label class="form-label">Notas / Comentarios:</label>
+              <textarea id="admin-notes" placeholder="Escribe notas sobre el participante..." rows="3"></textarea>
+
+              <div class="admin-form-actions">
+                <button type="submit" id="admin-save-btn" class="btn-primary">Guardar Registro</button>
+                <button type="button" id="admin-cancel-btn" class="btn-secondary hidden" onclick="resetAdminForm()">Cancelar Edición</button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Tabla de Datos con Scroll -->
+          <div class="admin-table-card">
+            <div class="table-header-actions">
+              <h3>Registros Almacenados</h3>
+              <button class="btn-primary" onclick="exportToCSV()">Exportar a Excel (CSV)</button>
+            </div>
+
+            <div class="table-wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Correo</th>
+                    <th>Empresa</th>
+                    <th>Servicio</th>
+                    <th>Premio</th>
+                    <th>Notas</th>
+                    <th>Fecha</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody id="history-body"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MODAL DE PREMIO -->
+    <div id="modal-prize" class="modal hidden">
+      <div class="modal-content">
+        <h3>¡Felicidades!</h3>
+        <p class="greeting" id="prize-greeting"></p>
+        <div id="prize-badge" class="prize-badge"></div>
+
+        <div class="modal-actions">
+          <button class="btn-primary" onclick="retryGame()">Girar de Nuevo</button>
+          <button class="btn-secondary" onclick="goToHome()">Finalizar y Volver al Inicio</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="app.js"></script>
+
+
+    <script>
+    if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./service-worker.js")
+            .then(() => console.log("Service Worker Registrado Exitosamente"))
+            .catch((err) => console.error("Error al registrar SW:", err));
+        });
+    }
+    </script>
+
+</body>
+</html>

@@ -6,35 +6,35 @@
   user-select: none;
 }
 
-body {
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
   background-color: #ffffff;
   color: #0a4479;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .app-container {
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  min-height: 100%;
   position: relative;
   background-color: #ffffff;
 }
 
 .screen {
   width: 100%;
-  height: 100%;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 20px;
-  position: absolute;
-  top: 0;
-  left: 0;
   background-color: #ffffff;
+  box-sizing: border-box;
 }
 
 .screen.hidden {
@@ -280,14 +280,14 @@ canvas {
   color: #06889d;
 }
 
-/* Pantalla Completa de Administración con Scroll Ajustado */
+/* Pantalla Completa de Administración con Scroll */
 .admin-container {
   width: 100%;
   max-width: 1250px;
-  height: calc(100vh - 40px);
   display: flex;
   flex-direction: column;
   gap: 15px;
+  padding: 10px 0;
 }
 
 .admin-header {
@@ -302,8 +302,7 @@ canvas {
   display: grid;
   grid-template-columns: 340px 1fr;
   gap: 20px;
-  flex: 1;
-  min-height: 0; /* Permite scroll interno */
+  width: 100%;
 }
 
 .admin-card, .admin-table-card {
@@ -314,7 +313,6 @@ canvas {
   box-shadow: 0 4px 15px rgba(10, 68, 121, 0.05);
   display: flex;
   flex-direction: column;
-  min-height: 0;
 }
 
 .admin-card h3, .admin-table-card h3 {
@@ -336,14 +334,14 @@ canvas {
   margin-bottom: 12px;
 }
 
-/* Contenedor de Tabla con Scroll Habilitado */
 .table-wrapper {
-  flex: 1;
+  width: 100%;
+  max-height: 60vh;
   overflow-y: auto;
   overflow-x: auto;
   border: 1px solid #e2e8f0;
   border-radius: 10px;
-  max-height: 100%;
+  -webkit-overflow-scrolling: touch;
 }
 
 table {

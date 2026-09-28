@@ -2,7 +2,7 @@
   "name": "Ruleta Mérieux NutriSciences",
   "short_name": "Ruleta",
   "start_url": "./index.html",
-  "display": "fullscreen",
+  "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#0a4479",
   "orientation": "landscape",

@@ -8,7 +8,7 @@
 
 html, body {
   width: 100%;
-  height: 100%;
+  min-height: 100%;
   margin: 0;
   padding: 0;
   background-color: #ffffff;
@@ -20,7 +20,7 @@ html, body {
 
 .app-container {
   width: 100%;
-  min-height: 100%;
+  min-height: 100vh;
   position: relative;
   background-color: #ffffff;
 }
@@ -32,7 +32,7 @@ html, body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: 20px 15px;
   background-color: #ffffff;
   box-sizing: border-box;
 }
@@ -41,11 +41,11 @@ html, body {
   display: none !important;
 }
 
-/* Tarjeta de Inicio */
+/* --- TARJETA DE INICIO (RESPONSIVA) --- */
 .card {
   background: #ffffff;
   border: 2px solid #00abe6;
-  padding: 35px;
+  padding: 25px 20px;
   border-radius: 20px;
   width: 100%;
   max-width: 520px;
@@ -64,19 +64,19 @@ html, body {
 }
 
 .main-logo {
-  max-width: 80%;
+  max-width: 85%;
   height: auto;
   object-fit: contain;
 }
 
 .card h1 {
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   color: #0a4479;
 }
 
 .subtitle {
   color: #06889d;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
 }
 
 form {
@@ -89,20 +89,26 @@ form {
 .form-row {
   display: flex;
   gap: 10px;
+  flex-wrap: wrap; /* Permite que los campos se apilen en pantallas muy estrechas */
+}
+
+.form-row input {
+  flex: 1;
+  min-width: 130px;
 }
 
 input, select, textarea {
   width: 100%;
-  padding: 12px 16px;
+  padding: 12px 14px;
   border-radius: 10px;
   border: 1px solid #00abe6;
   background: #ffffff;
   color: #0a4479;
-  font-size: 1rem;
+  font-size: 0.95rem;
 }
 
 textarea {
-  resize: none;
+  resize: vertical;
   font-family: inherit;
 }
 
@@ -119,7 +125,7 @@ input:focus, select:focus, textarea:focus {
   margin-top: 5px;
 }
 
-/* Botones Selector de Servicio VERDES */
+/* --- BOTONES SELECTOR DE SERVICIO --- */
 .service-toggle-group {
   display: flex;
   gap: 10px;
@@ -127,12 +133,12 @@ input:focus, select:focus, textarea:focus {
 
 .service-btn {
   flex: 1;
-  padding: 12px;
+  padding: 12px 8px;
   border: 2px solid #55a932;
   background: #ffffff;
   color: #0a4479;
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   border-radius: 10px;
   cursor: pointer;
   transition: all 0.2s;
@@ -144,7 +150,7 @@ input:focus, select:focus, textarea:focus {
   border-color: #55a932;
 }
 
-/* Botones Generales */
+/* --- BOTONES GENERALES --- */
 .btn-primary {
   background: #00abe6;
   color: #ffffff;
@@ -153,7 +159,7 @@ input:focus, select:focus, textarea:focus {
   border: none;
   border-radius: 12px;
   cursor: pointer;
-  font-size: 1.1rem;
+  font-size: 1rem;
   box-shadow: 0 4px 12px rgba(0, 171, 230, 0.3);
 }
 
@@ -180,15 +186,14 @@ input:focus, select:focus, textarea:focus {
   cursor: pointer;
 }
 
-/* Sección de Ruleta */
+/* --- SECCIÓN DE RULETA --- */
 .game-header {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  right: 20px;
+  width: 100%;
+  max-width: 600px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 10px;
 }
 
 .participant-tag {
@@ -197,7 +202,11 @@ input:focus, select:focus, textarea:focus {
   padding: 6px 14px;
   border-radius: 20px;
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
+  max-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .wheel-section {
@@ -205,18 +214,23 @@ input:focus, select:focus, textarea:focus {
   flex-direction: column;
   align-items: center;
   gap: 12px;
+  width: 100%;
 }
 
 .canvas-wrapper {
   position: relative;
-  width: 380px;
-  height: 380px;
+  width: 100%;
+  max-width: 380px;
+  aspect-ratio: 1 / 1;
   margin: 10px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 canvas {
-  width: 100%;
-  height: 100%;
+  width: 100% !important;
+  height: 100% !important;
   border-radius: 50%;
   box-shadow: 0 0 25px rgba(10, 68, 121, 0.2);
 }
@@ -239,11 +253,13 @@ canvas {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
+  width: 100%;
 }
 
 .power-bar-container {
-  width: 260px;
+  width: 100%;
+  max-width: 260px;
   height: 12px;
   background: #e2e8f0;
   border-radius: 20px;
@@ -261,9 +277,9 @@ canvas {
 .spin-btn {
   background: #55a932;
   color: white;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: 800;
-  padding: 14px 40px;
+  padding: 14px 36px;
   border: none;
   border-radius: 50px;
   cursor: pointer;
@@ -278,16 +294,16 @@ canvas {
 .hint {
   font-size: 0.8rem;
   color: #06889d;
+  text-align: center;
 }
 
-/* Pantalla Completa de Administración con Scroll */
+/* --- PANTALLA DE ADMINISTRACIÓN (ADAPTABLE) --- */
 .admin-container {
   width: 100%;
   max-width: 1250px;
   display: flex;
   flex-direction: column;
   gap: 15px;
-  padding: 10px 0;
 }
 
 .admin-header {
@@ -296,11 +312,18 @@ canvas {
   align-items: center;
   padding-bottom: 10px;
   border-bottom: 2px solid #00abe6;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
+.admin-header h2 {
+  font-size: 1.2rem;
+}
+
+/* Grid dinámico que pasa de 2 columnas a 1 vertical según el ancho */
 .admin-content {
   display: grid;
-  grid-template-columns: 340px 1fr;
+  grid-template-columns: minmax(280px, 340px) 1fr;
   gap: 20px;
   width: 100%;
 }
@@ -309,15 +332,18 @@ canvas {
   background: #ffffff;
   border: 1px solid #00abe6;
   border-radius: 15px;
-  padding: 20px;
+  padding: 18px;
   box-shadow: 0 4px 15px rgba(10, 68, 121, 0.05);
   display: flex;
   flex-direction: column;
+  width: 100%;
+  overflow: hidden;
 }
 
 .admin-card h3, .admin-table-card h3 {
   margin-bottom: 12px;
   color: #0a4479;
+  font-size: 1.1rem;
 }
 
 .admin-form-actions {
@@ -332,13 +358,16 @@ canvas {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 12px;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
+/* TABLA RESPONSIVA CON SCROLL HORIZONTAL Y VERTICAL */
 .table-wrapper {
   width: 100%;
   max-height: 60vh;
   overflow-y: auto;
-  overflow-x: auto;
+  overflow-x: auto; /* Permite scroll horizontal fluido en la tabla sin romper la pantalla */
   border: 1px solid #e2e8f0;
   border-radius: 10px;
   -webkit-overflow-scrolling: touch;
@@ -346,6 +375,7 @@ canvas {
 
 table {
   width: 100%;
+  min-width: 650px; /* Ancho mínimo garantizado para que las columnas no se aplasten */
   border-collapse: collapse;
   font-size: 0.85rem;
 }
@@ -354,6 +384,7 @@ th, td {
   padding: 10px;
   border-bottom: 1px solid #e2e8f0;
   text-align: left;
+  white-space: nowrap;
 }
 
 th {
@@ -383,7 +414,7 @@ th {
   cursor: pointer;
 }
 
-/* Modales */
+/* --- MODALES --- */
 .modal {
   position: fixed;
   inset: 0;
@@ -393,6 +424,7 @@ th {
   align-items: center;
   z-index: 100;
   backdrop-filter: blur(4px);
+  padding: 15px;
 }
 
 .modal.hidden {
@@ -402,15 +434,15 @@ th {
 .modal-content {
   background: #ffffff;
   border: 2px solid #00abe6;
-  padding: 30px;
+  padding: 25px 20px;
   border-radius: 20px;
   text-align: center;
-  width: 90%;
-  max-width: 450px;
+  width: 100%;
+  max-width: 420px;
 }
 
 .prize-badge {
-  font-size: 2rem;
+  font-size: 1.8rem;
   font-weight: 800;
   color: #31986c;
   margin: 15px 0;
@@ -421,4 +453,29 @@ th {
   flex-direction: column;
   gap: 10px;
   margin-top: 15px;
+}
+
+/* --- MEDIA QUERIES PARA CELULARES Y TABLETS EN VERTICAL --- */
+@media (max-width: 850px) {
+  .admin-content {
+    grid-template-columns: 1fr; /* Cambia a disposición totalmente vertical */
+  }
+
+  .screen {
+    padding: 15px 10px;
+    justify-content: flex-start;
+  }
+
+  .card {
+    padding: 20px 15px;
+  }
+
+  .table-header-actions {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .table-header-actions button {
+    width: 100%;
+  }
 }
